@@ -1,5 +1,5 @@
 {
-  "id": "undaunted-dungeon-tracker",
+  "id": "dungeon_explorer",
   "title": "Undaunted Dungeon Tracker",
   "description": "A Foundry VTT v14 dungeon tracker for exploration, encounters, hazards, and dungeon timekeeping.",
   "version": "1.0.0",
@@ -7,6 +7,9 @@
     "minimum": "14",
     "verified": "14"
   },
+  "manifest": "https://raw.githubusercontent.com/aguilev03/dungeon_explorer/main/module.json",
+  "download": "https://github.com/aguilev03/dungeon_explorer/archive/refs/heads/main.zip",
+  "url": "https://github.com/aguilev03/dungeon_explorer",
   "authors": [
     {
       "name": "Evan"

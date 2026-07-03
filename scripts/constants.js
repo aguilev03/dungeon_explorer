@@ -1,4 +1,4 @@
-export const MODULE_ID = "undaunted-dungeon-tracker";
+export const MODULE_ID = "dungeon_explorer";
 export const FLAG_SCOPE = MODULE_ID;
 export const FLAG_KEY = "state";
 

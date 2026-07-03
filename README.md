@@ -26,12 +26,12 @@ The module preserves the original workflow:
 
 ## Installation
 
-Copy the `dungeon_explorer` folder into your Foundry user data modules directory and rename it to `undaunted-dungeon-tracker` if you want the folder name to match the module id.
+Copy the `dungeon_explorer` folder into your Foundry user data modules directory.
 
 Example target path:
 
 ```text
-Data/modules/undaunted-dungeon-tracker
+Data/modules/dungeon_explorer
 ```
 
 Then enable **Undaunted Dungeon Tracker** from the Foundry module management UI.
@@ -60,7 +60,7 @@ UndauntedDungeonTracker.openTracker();
 ```
 
 ```js
-game.modules.get("undaunted-dungeon-tracker").api.openTracker();
+game.modules.get("dungeon_explorer").api.openTracker();
 ```
 
 Also available:
