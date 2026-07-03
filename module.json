@@ -1,0 +1,21 @@
+{
+  "id": "undaunted-dungeon-tracker",
+  "title": "Undaunted Dungeon Tracker",
+  "description": "A Foundry VTT v14 dungeon tracker for exploration, encounters, hazards, and dungeon timekeeping.",
+  "version": "1.0.0",
+  "compatibility": {
+    "minimum": "14",
+    "verified": "14"
+  },
+  "authors": [
+    {
+      "name": "Evan"
+    }
+  ],
+  "esmodules": [
+    "scripts/module.js"
+  ],
+  "styles": [
+    "styles/tracker.css"
+  ]
+}

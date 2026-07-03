@@ -1,0 +1,29 @@
+.undaunted-dungeon-tracker .window-content {
+  min-width: 560px;
+}
+
+.undaunted-tracker {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.undaunted-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.25rem 1rem;
+}
+
+.undaunted-tracker p {
+  margin: 0;
+}
+
+.undaunted-actions {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.undaunted-actions button {
+  min-height: 2rem;
+}

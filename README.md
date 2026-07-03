@@ -1,0 +1,101 @@
+# Undaunted Dungeon Tracker
+
+Foundry VTT v14 module version of the Undaunted dungeon tracker macro.
+
+## Features
+
+- Foundry VTT v14 compatible
+- `ApplicationV2` tracker window
+- Persistent dungeon state until reset
+- Persistent RollTable name configuration until reset
+- Scene control button to open the tracker
+- Macro/API function to open the tracker
+- Split module code for easier maintenance
+
+The module preserves the original workflow:
+
+- Dungeon setup
+- Explore rolls and progress tracking
+- Search and discoveries
+- Hazard generation
+- Encounters and NPC clash handling
+- Wandering monster checks
+- Torch tracking
+- Rest tracking
+- Manual dungeon time advancement
+
+## Installation
+
+Copy the `dungeon_explorer` folder into your Foundry user data modules directory and rename it to `undaunted-dungeon-tracker` if you want the folder name to match the module id.
+
+Example target path:
+
+```text
+Data/modules/undaunted-dungeon-tracker
+```
+
+Then enable **Undaunted Dungeon Tracker** from the Foundry module management UI.
+
+## Usage
+
+Open the tracker with either:
+
+- The dungeon icon scene control button
+- A macro calling `UndauntedDungeonTracker.openTracker()`
+
+When the tracker opens:
+
+1. Press `Setup`
+2. Configure dungeon type, levels, torch/rest settings, and RollTable names
+3. Use the tracker buttons to run dungeon actions
+
+State is stored on the current user and remains available until `Reset` is used.
+
+## Macro/API Access
+
+The module exposes a small API on both the module record and a global:
+
+```js
+UndauntedDungeonTracker.openTracker();
+```
+
+```js
+game.modules.get("undaunted-dungeon-tracker").api.openTracker();
+```
+
+Also available:
+
+```js
+UndauntedDungeonTracker.setupDungeon();
+UndauntedDungeonTracker.resetDungeon();
+```
+
+## RollTable Configuration
+
+All RollTable names remain configurable in the setup dialog.
+
+Configured table names are stored in the same persistent tracker state, so users do not need to re-enter them each session unless they reset the tracker.
+
+## File Layout
+
+```text
+module.json
+scripts/
+  module.js
+  constants.js
+  state.js
+  chat.js
+  tracker-service.js
+  apps/
+    tracker-app.js
+templates/
+  tracker.hbs
+styles/
+  tracker.css
+```
+
+## Notes
+
+- The module currently stores state per user, matching the original macro behavior.
+- RollTables referenced by name must already exist in the world or an available compendium import.
+- Missing RollTables produce a Foundry warning and a visible placeholder result in chat.

@@ -1,0 +1,38 @@
+<div class="undaunted-tracker">
+  <h2>Undaunted Dungeon Tracker</h2>
+
+  <div class="undaunted-grid">
+    <p><b>Active:</b> {{active}}</p>
+    <p><b>Type:</b> {{dungeonType}}</p>
+    <p><b>Level:</b> {{currentLevel}} / {{levels}}</p>
+    <p><b>Progress:</b> {{progress}}</p>
+    <p><b>Current Room:</b> {{currentRoomId}}</p>
+    <p><b>Searched:</b> {{searched}}</p>
+  </div>
+
+  <hr>
+
+  <div class="undaunted-grid">
+    <p><b>Total Time:</b> {{totalTime}}</p>
+    <p><b>Total Turns:</b> {{totalTurns}}</p>
+    <p><b>Encounter Pool:</b> {{encounterPool}}</p>
+    <p><b>Torch:</b> {{torchStatus}}</p>
+    <p><b>Rest:</b> {{restStatus}}</p>
+  </div>
+
+  <p><b>Encounter Table:</b> {{encounterTable}}</p>
+  <p><b>Wandering Table:</b> {{wanderingTable}}</p>
+
+  <div class="undaunted-actions">
+    <button type="button" data-action="setup">Setup</button>
+    <button type="button" data-action="explore">Explore</button>
+    <button type="button" data-action="search">Search</button>
+    <button type="button" data-action="encounter">Encounter</button>
+    <button type="button" data-action="time">Time</button>
+    <button type="button" data-action="wandering">Wandering</button>
+    <button type="button" data-action="torch">Torch</button>
+    <button type="button" data-action="rest">Rest</button>
+    <button type="button" data-action="reset">Reset</button>
+    <button type="button" data-action="close">Close</button>
+  </div>
+</div>
