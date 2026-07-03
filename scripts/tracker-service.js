@@ -250,6 +250,25 @@ export async function setupDungeon() {
   return state;
 }
 
+export async function configureTables() {
+  const state = await getState();
+  const result = await showSetupDialog(state);
+  if (!result) return null;
+
+  const tables = {};
+  for (const key of Object.keys(DEFAULT_TABLES)) {
+    tables[key] = result[key] || DEFAULT_TABLES[key];
+  }
+
+  state.tables = tables;
+  state.torchMaxTurns = Number(result.torchMaxTurns) || state.torchMaxTurns || 6;
+  state.restDueEveryTurns = Number(result.restDueEveryTurns) || state.restDueEveryTurns || 6;
+
+  await saveState(state);
+  ui.notifications.info("Undaunted tracker settings updated.");
+  return state;
+}
+
 export async function exploreDungeon() {
   const state = await getState();
   if (!state.active) {

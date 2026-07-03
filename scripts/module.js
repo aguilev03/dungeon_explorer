@@ -21,12 +21,31 @@ function registerSceneControl() {
     if (!tokenControls) return;
 
     tokenControls.tools.push({
-      name: "undaunted-dungeon-tracker",
+      name: "dungeon-explorer",
       title: "Undaunted Dungeon Tracker",
-      icon: "fas fa-dungeon",
+      icon: "fas fa-torch",
       button: true,
       onClick: () => openTracker()
     });
+  });
+}
+
+function registerBoardButton() {
+  Hooks.on("renderSceneControls", (_app, html) => {
+    const root = html?.[0] ?? html;
+    if (!root) return;
+    if (root.querySelector(`.${MODULE_ID}-board-button`)) return;
+
+    const controlBar = root.querySelector("#controls");
+    if (!controlBar) return;
+
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = `${MODULE_ID}-board-button`;
+    button.title = "Undaunted Dungeon Tracker";
+    button.innerHTML = '<i class="fas fa-torch"></i><span>Dungeon</span>';
+    button.addEventListener("click", () => openTracker());
+    controlBar.appendChild(button);
   });
 }
 
@@ -43,6 +62,7 @@ function registerApi() {
 
 Hooks.once("init", () => {
   registerSceneControl();
+  registerBoardButton();
 });
 
 Hooks.once("ready", () => {

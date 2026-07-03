@@ -3,6 +3,7 @@ import { getState } from "../state.js";
 import {
   advanceTimeManual,
   checkWanderingMonster,
+  configureTables,
   exploreDungeon,
   faceEncounter,
   getCurrentRoom,
@@ -89,6 +90,9 @@ export class UndauntedTrackerApplication extends HandlebarsApplicationMixin(Appl
 
     switch (action) {
       case "setup":
+        await configureTables();
+        break;
+      case "new":
         await setupDungeon();
         break;
       case "explore":

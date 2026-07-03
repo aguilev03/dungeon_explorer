@@ -9,6 +9,7 @@ Foundry VTT v14 module version of the Undaunted dungeon tracker macro.
 - Persistent dungeon state until reset
 - Persistent RollTable name configuration until reset
 - Scene control button to open the tracker
+- Board-side button to open the tracker
 - Macro/API function to open the tracker
 - Split module code for easier maintenance
 
@@ -40,14 +41,17 @@ Then enable **Undaunted Dungeon Tracker** from the Foundry module management UI.
 
 Open the tracker with either:
 
+- The `Dungeon` button on the left-side board controls
 - The dungeon icon scene control button
 - A macro calling `UndauntedDungeonTracker.openTracker()`
 
 When the tracker opens:
 
-1. Press `Setup`
-2. Configure dungeon type, levels, torch/rest settings, and RollTable names
-3. Use the tracker buttons to run dungeon actions
+1. Press `New` to start a new dungeon
+2. Choose `Cave`, `Tomb`, `Fort`, or `Temple`, or roll from tables
+3. Adjust torch/rest settings and RollTable names if needed
+4. Use `Setup` later to update table names and timing settings without starting over
+5. Use the tracker buttons to run dungeon actions
 
 State is stored on the current user and remains available until `Reset` is used.
 
