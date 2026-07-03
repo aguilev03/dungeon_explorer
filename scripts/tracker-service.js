@@ -143,25 +143,6 @@ async function showSetupDialog(existingState) {
   const content = `
     <form class="undaunted-setup-form">
       <div class="form-group">
-        <label>Dungeon Type</label>
-        <select name="typeMode">
-          <option value="roll">Roll from table</option>
-          <option value="Cave" ${state.dungeonType === "Cave" ? "selected" : ""}>Cave</option>
-          <option value="Tomb" ${state.dungeonType === "Tomb" ? "selected" : ""}>Tomb</option>
-          <option value="Fort" ${state.dungeonType === "Fort" ? "selected" : ""}>Fort</option>
-          <option value="Temple" ${state.dungeonType === "Temple" ? "selected" : ""}>Temple</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>Levels</label>
-        <select name="levelMode">
-          <option value="roll">Roll from table</option>
-          <option value="1" ${state.levels === 1 ? "selected" : ""}>1 Level</option>
-          <option value="2" ${state.levels === 2 ? "selected" : ""}>2 Levels</option>
-          <option value="3" ${state.levels === 3 ? "selected" : ""}>3 Levels</option>
-        </select>
-      </div>
-      <div class="form-group">
         <label>Torch Max Turns</label>
         <input type="number" name="torchMaxTurns" value="${state.torchMaxTurns ?? 6}" min="1">
       </div>
@@ -202,15 +183,63 @@ async function showSetupDialog(existingState) {
   });
 }
 
+async function showNewDungeonDialog(existingState) {
+  const { DialogV2 } = foundry.applications.api;
+  const state = existingState ?? (await getState());
+
+  const content = `
+    <form class="undaunted-new-dungeon-form">
+      <div class="form-group">
+        <label>Dungeon Type</label>
+        <select name="typeMode">
+          <option value="roll" selected>Roll from table</option>
+          <option value="Cave" ${state.dungeonType === "Cave" ? "selected" : ""}>Cave</option>
+          <option value="Tomb" ${state.dungeonType === "Tomb" ? "selected" : ""}>Tomb</option>
+          <option value="Fort" ${state.dungeonType === "Fort" ? "selected" : ""}>Fort</option>
+          <option value="Temple" ${state.dungeonType === "Temple" ? "selected" : ""}>Temple</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Levels</label>
+        <select name="levelMode">
+          <option value="1" ${state.levels === 1 ? "selected" : ""}>1 Level</option>
+          <option value="2" ${state.levels === 2 ? "selected" : ""}>2 Levels</option>
+          <option value="3" ${state.levels === 3 ? "selected" : ""}>3 Levels</option>
+        </select>
+      </div>
+    </form>
+  `;
+
+  return DialogV2.wait({
+    window: { title: "Create New Dungeon" },
+    content,
+    buttons: [
+      {
+        action: "create",
+        label: "Create",
+        default: true,
+        callback: (_, button, dialog) => {
+          const form = resolveElement(dialog.element)?.querySelector("form");
+          if (!form) return null;
+          return Object.fromEntries(new FormData(form).entries());
+        }
+      },
+      {
+        action: "cancel",
+        label: "Cancel"
+      }
+    ]
+  });
+}
+
 export async function setupDungeon() {
   const priorState = await getState();
-  const result = await showSetupDialog(priorState);
+  const result = await showNewDungeonDialog(priorState);
   if (!result) return null;
-
-  const tables = {};
-  for (const key of Object.keys(DEFAULT_TABLES)) {
-    tables[key] = result[key] || DEFAULT_TABLES[key];
-  }
+  const tables = {
+    ...DEFAULT_TABLES,
+    ...(priorState.tables ?? {})
+  };
 
   let dungeonType = result.typeMode;
   if (result.typeMode === "roll") {
@@ -218,12 +247,6 @@ export async function setupDungeon() {
   }
 
   let levels = Number(result.levelMode);
-  if (result.levelMode === "roll") {
-    const levelText = String((await drawTable(tables.dungeonLevels)).text).toLowerCase();
-    if (levelText.includes("three") || levelText.includes("3")) levels = 3;
-    else if (levelText.includes("two") || levelText.includes("2")) levels = 2;
-    else levels = 1;
-  }
 
   const state = foundry.utils.mergeObject(foundry.utils.deepClone(DEFAULT_STATE), {
     active: true,
@@ -238,9 +261,9 @@ export async function setupDungeon() {
     totalMinutes: 0,
     encounterPool: 0,
     torchTurnsUsed: 0,
-    torchMaxTurns: Number(result.torchMaxTurns) || 6,
+    torchMaxTurns: Number(priorState.torchMaxTurns) || 6,
     turnsSinceRest: 0,
-    restDueEveryTurns: Number(result.restDueEveryTurns) || 6,
+    restDueEveryTurns: Number(priorState.restDueEveryTurns) || 6,
     tables
   }, { inplace: false });
 

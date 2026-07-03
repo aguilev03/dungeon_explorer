@@ -31,21 +31,22 @@ function registerSceneControl() {
 }
 
 function registerBoardButton() {
-  Hooks.on("renderSceneControls", (_app, html) => {
-    const root = html?.[0] ?? html;
-    if (!root) return;
-    if (root.querySelector(`.${MODULE_ID}-board-button`)) return;
+  Hooks.on("canvasReady", () => {
+    let button = document.querySelector(`.${MODULE_ID}-floating-button`);
 
-    const controlBar = root.querySelector("#controls");
-    if (!controlBar) return;
+    if (!button) {
+      button = document.createElement("button");
+      button.type = "button";
+      button.className = `${MODULE_ID}-floating-button`;
+      button.title = "Undaunted Dungeon Tracker";
+      button.innerHTML = '<i class="fas fa-torch"></i><span>Dungeon</span>';
+      button.addEventListener("click", () => openTracker());
+      document.body.appendChild(button);
+    }
+  });
 
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = `${MODULE_ID}-board-button`;
-    button.title = "Undaunted Dungeon Tracker";
-    button.innerHTML = '<i class="fas fa-torch"></i><span>Dungeon</span>';
-    button.addEventListener("click", () => openTracker());
-    controlBar.appendChild(button);
+  Hooks.on("canvasTearDown", () => {
+    document.querySelector(`.${MODULE_ID}-floating-button`)?.remove();
   });
 }
 

@@ -28,26 +28,30 @@
   min-height: 2rem;
 }
 
-.dungeon_explorer-board-button {
+.dungeon_explorer-floating-button {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 80;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.4rem;
-  width: 100%;
-  margin-top: 0.5rem;
+  min-width: 8.5rem;
   padding: 0.5rem 0.75rem;
   border: 1px solid var(--color-border-dark);
   border-radius: 6px;
   background: rgba(0, 0, 0, 0.8);
   color: var(--color-text-light-0);
   cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
 }
 
-.dungeon_explorer-board-button:hover {
+.dungeon_explorer-floating-button:hover {
   background: rgba(255, 255, 255, 0.08);
 }
 
-.dungeon_explorer-board-button span {
+.dungeon_explorer-floating-button span {
   font-size: 0.875rem;
   font-weight: 600;
 }
